@@ -90,5 +90,5 @@ df_summarised <- df %>%
   arrange(desc(mean.Biomass)) # rearrange the order of the rows
 
 ggplot(df) +
-  geom_boxplot(mapping = aes(Biomass, Species, fill = DayNight)) +
+  geom_boxplot(mapping = aes(Biomass, Species, fill = DayNight))
 
