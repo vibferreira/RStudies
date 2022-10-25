@@ -89,10 +89,6 @@ df_summarised <- df %>%
     sd.Biomass = sd(Biomass, na.rm=TRUE)) %>% # standard deviation
   arrange(desc(mean.Biomass)) # rearrange the order of the rows
 
-ggplot(df, aes(Biomass, Species, fill = DayNight)) +
-  geom_boxplot(notch = F) +
-  geom_tile('Boxplot Biomass per Species x DayNight')
-
-# combining datasets
-
+ggplot(df) +
+  geom_boxplot(mapping = aes(Biomass, Species, fill = DayNight)) +
 
