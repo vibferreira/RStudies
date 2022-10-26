@@ -13,7 +13,6 @@ View(df_fish)
 
 wide_df <- spread(data=df_fish, key=Species, value=Abundance, fill=0)
 
-
 # reshaping from long to wide format 
 # key refers to the the obs to be transformed into columns
 # value refers to the value to be filled 
@@ -21,5 +20,4 @@ wide_df <- spread(data=df_fish, key=Species, value=Abundance, fill=0)
 long_df <- gather(wide_df, Species, Abundance, 4:6)
 
 # reshape2 
-
 
