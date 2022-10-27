@@ -4,6 +4,35 @@
 library(formatR)
 library(tidyverse)
 
+#---------Functions-------------------
+# Notes for life: 
+# a good function does ONE thing well
+# it's as short as it can be (aim at generic)
+
+algae <- read_csv("data/Algal_traits.csv")
+
+std_error <- function(x, na.rm=FALSE) { # note that functions in R are stored to variable that are also their name
+  # calculates the sample std error
+  #
+  # x: sample vector
+  # na.rm: boolean (TRUE or FALSE) indicating if na should or should not be removed
+  #
+  # return: std error of sample
+  
+  return(sqrt(var(x, na.rm = na.rm)/sum(!is.na(x)))) # writing return is not necessary
+}
+
+std_error(algae$strength, na.rm = TRUE)
+
+?mean
+
+# Functions that returns multiple variables
+
+fit <- lm(algae$height ~ algae$dryweight)
+
+names(fit)
+fit$coefficients
+
 #----------For Loop------------------
 vec <- vector(length = 10) # how to create an empty vector in R (similar to np.zeros(10) in python)
 vec_1 <-  vector(length = 10)
@@ -44,34 +73,26 @@ for (i in 1:10) {
 df2
 
 # The apply family
+# Lapply 
+movies <- c("SPYDERMAN","BATMAN","VERTIGO","CHINATOWN")
+movies_lower <-unlist(lapply(movies, tolower))
+str(movies_lower)
 
+# another way to do the same thing
+df <- data.frame(movies=movies, 
+                 score = c(1:length(movies)))
+df$movies <- tolower(df$movies)
 
-#---------Functions-------------------
-# Notes for life: 
-# a good function does ONE thing well
-# it's as short as it can be (aim at generic)
+df$score <- lapply(df$score, sqrt) # return a list
+df$score <- sapply(df$score, sqrt) # return a vector
 
-algae <- read_csv("data/Algal_traits.csv")
+str(movies_lower)
 
-std_error <- function(x, na.rm=FALSE) { # note that functions in R are stored to variable that are also their name
-  # calculates the sample std error
-  #
-  # x: sample vector
-  # na.rm: boolean (TRUE or FALSE) indicating if na should or should not be removed
-  #
-  # return: std error of sample
-  
-  return(sqrt(var(x, na.rm = na.rm)/sum(!is.na(x)))) # writing return is not necessary
-}
+# Note we can add any argument to the FUN as an argument of lapply/sapply
+CAR <- cars
+lapply(CAR, std_error, na.rm=TRUE)  # return a list
+sapply(CAR, std_error, na.rm=TRUE) # return a vector
 
-std_error(algae$strength, na.rm = TRUE)
+sapply(df$movies, tolower)
 
-?mean
-
-# Functions that returns multiple variables
-
-fit <- lm(algae$height ~ algae$dryweight)
-
-names(fit)
-fit$coefficients
 
