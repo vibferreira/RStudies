@@ -6,13 +6,45 @@ library(tidyverse)
 
 #----------For Loop------------------
 vec <- vector(length = 10) # how to create an empty vector in R (similar to np.zeros(10) in python)
+vec_1 <-  vector(length = 10)
 
 for (i in 1:10) {
   # store the value of the operation in 
   vec[i] = i * 10
   
   if (vec[i] == 20) {vec[i] = 0} # if condition 
+
 }
+
+# Dataframe
+df <- data.frame(col1 = vector(), 
+                 col2 = vector()) # makes a blank data frame with two columns
+
+for (i in 1:10) {
+  col1 <- i^2 # performs first operation
+  col2 <- sqrt(i) # performs second operation
+  print(col1, col2)
+  df <- rbind(df, cbind(col1, col2)) # overwrites 'x2' values including the new row
+}
+
+# Testing if I get it
+# it is better/ safer to define the variable type from the beginning
+df2 <- data.frame(number = integer(length = 10), 
+                  num_letter = character(length = 10), 
+                  stringsAsFactors = F) 
+
+for (i in 1:10) {
+  number <- i 
+  char_num <- as.character(i +1)
+  
+  df2[i,] <- c(number = number, 
+               num_letter = char_num) # indexing, similar to the dict in python
+}
+                 
+df2
+
+# The apply family
+
 
 #---------Functions-------------------
 # Notes for life: 
